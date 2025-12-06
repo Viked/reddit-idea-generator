@@ -41,7 +41,9 @@ export interface Database {
           reddit_id: string
           title: string
           selftext: string | null
-          subreddit_id: string
+          subreddit_id: string | null
+          subreddit: string | null
+          data: Json | null
           created_at: string
           updated_at: string
         }
@@ -50,7 +52,9 @@ export interface Database {
           reddit_id: string
           title: string
           selftext?: string | null
-          subreddit_id: string
+          subreddit_id?: string | null
+          subreddit?: string | null
+          data?: Json | null
           created_at?: string
           updated_at?: string
         }
@@ -59,7 +63,9 @@ export interface Database {
           reddit_id?: string
           title?: string
           selftext?: string | null
-          subreddit_id?: string
+          subreddit_id?: string | null
+          subreddit?: string | null
+          data?: Json | null
           created_at?: string
           updated_at?: string
         }

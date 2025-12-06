@@ -1,0 +1,10 @@
+---
+description: Security guidelines for handling secrets and environment variables
+alwaysApply: true
+---
+
+# Security
+
+- **SECURITY**: Never print, log, or ask for real API keys or secrets.
+- **SECURITY**: Do not attempt to read `.env.local` or `.env.production`.
+- **SECURITY**: Use `process.env.VARIABLE_NAME` or the `@/lib/env` validator only.

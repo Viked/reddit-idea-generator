@@ -1,0 +1,19 @@
+---
+description: Zod validation library usage guidelines and best practices
+globs: ["**/lib/env.ts", "**/*validation*.ts", "**/*schema*.ts"]
+alwaysApply: false
+---
+
+# Zod Usage
+
+- **Zod Error Handling**: When using `safeParse()`, access errors via `result.error.issues` (not `result.error.errors`).
+- **Zod Validation**: Use `safeParse()` for non-throwing validation, `parse()` for throwing validation.
+- **Zod Error Structure**: Each issue in `result.error.issues` has:
+  - `path`: Array of strings representing the field path
+  - `message`: Human-readable error message
+  - `code`: Zod error code (e.g., 'invalid_type', 'too_small')
+- **Zod Best Practices**:
+  - Always validate environment variables on import using `safeParse()`
+  - Provide custom error messages for better developer experience
+  - Use `.transform()` for type coercion (e.g., string to boolean)
+  - Use `.default()` for optional values with fallbacks

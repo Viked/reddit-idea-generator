@@ -1,0 +1,17 @@
+---
+description: Core coding rules and conventions for the project
+globs: ["**/*.ts", "**/*.tsx"]
+alwaysApply: true
+---
+
+# Coding Rules
+
+- Use Server Actions for mutations
+- Use 'json_object' mode for all LLM outputs
+- Strict TypeScript interfaces in `types`
+- Strictly await `params` and `searchParams` in server components
+- Turbopack is enabled by default
+
+## Behavior
+
+- Cycle: Plan -> Code -> Validate -> Document -> Commit

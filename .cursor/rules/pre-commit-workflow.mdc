@@ -1,0 +1,24 @@
+---
+description: Mandatory pre-commit validation checklist
+alwaysApply: true
+---
+
+# Pre-Commit Workflow
+
+Mandatory checklist to be performed before every commit:
+
+1. **Validation**: 
+   - Run `npx tsc --noEmit` (Type Check) to ensure no TypeScript errors
+   - Run `npm run lint` to ensure no linting errors
+
+2. **Database**: 
+   - Run `npm run db:validate` to ensure connectivity.
+
+3. **Ingestion**: 
+   - Run `npm run ingest:validate` to validate Reddit ingestion service functionality.
+
+4. **Audit**: 
+   - Update `.cursor/PROMPTS.md` with the key prompt used to generate the feature
+
+5. **History**: 
+   - Export the chat history to `.cursor/history/` and link it in the `PROMPTS.md` entry

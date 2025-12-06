@@ -1,0 +1,10 @@
+---
+description: Project technology stack and framework versions
+alwaysApply: true
+---
+
+# Stack
+
+- Next.js 16 (Stable) (App Router)
+- Supabase
+- Inngest

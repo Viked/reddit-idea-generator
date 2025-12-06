@@ -1,5 +1,25 @@
 # Project Rules
 
+> **⚠️ This file has been migrated to `.cursor/rules/` directory**
+> 
+> Rules are now organized into separate `.mdc` files in `.cursor/rules/` for better maintainability and context-aware application. This file is kept for reference but is no longer actively used by Cursor.
+> 
+> See `.cursor/rules/README.md` for details on the new structure.
+
+## Migration Status
+
+All rules have been migrated to the following files:
+- `.cursor/rules/stack.mdc` - Technology stack
+- `.cursor/rules/coding-rules.mdc` - Coding conventions
+- `.cursor/rules/pre-commit-workflow.mdc` - Pre-commit checklist
+- `.cursor/rules/security.mdc` - Security guidelines
+- `.cursor/rules/zod-usage.mdc` - Zod best practices
+
+## Legacy Content (for reference)
+
+<details>
+<summary>Click to view legacy rules content</summary>
+
 ## Stack
 - Next.js 16 (Stable) (App Router)
 - Supabase
@@ -26,10 +46,13 @@ Mandatory checklist to be performed before every commit:
 2. **Database**: 
    - Run `npm run db:validate` to ensure connectivity.
 
-3. **Audit**: 
+3. **Ingestion**: 
+   - Run `npm run ingest:validate` to validate Reddit ingestion service functionality.
+
+4. **Audit**: 
    - Update `.cursor/PROMPTS.md` with the key prompt used to generate the feature
 
-4. **History**: 
+5. **History**: 
    - Export the chat history to `.cursor/history/` and link it in the `PROMPTS.md` entry
 
 ## Security
@@ -51,4 +74,6 @@ Mandatory checklist to be performed before every commit:
   - Provide custom error messages for better developer experience
   - Use `.transform()` for type coercion (e.g., string to boolean)
   - Use `.default()` for optional values with fallbacks
+
+</details>
 
