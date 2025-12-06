@@ -20,6 +20,132 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Configuration
+
+Before running the application, you need to set up your environment variables.
+
+1. **Copy the example environment file:**
+   ```bash
+   cp .env.example .env.local
+   ```
+
+2. **Fill in your environment variables in `.env.local`:**
+   - **Supabase**: Get your project URL and keys from your [Supabase Dashboard](https://app.supabase.com)
+     - `NEXT_PUBLIC_SUPABASE_URL`: Your Supabase project URL
+     - `NEXT_PUBLIC_SUPABASE_ANON_KEY`: Your Supabase anonymous/public key
+     - `SUPABASE_SERVICE_ROLE_KEY`: Your Supabase service role key (keep this secret!)
+   
+   - **OpenAI**: Get your API key from [OpenAI Platform](https://platform.openai.com)
+     - `OPENAI_API_KEY`: Your OpenAI API key
+   
+   - **Inngest**: Get your keys from your [Inngest Dashboard](https://app.inngest.com)
+     - `INNGEST_EVENT_KEY`: Your Inngest event key
+     - `INNGEST_SIGNING_KEY`: Your Inngest signing key
+   
+   - **App Logic**:
+     - `MOCK_MODE`: Set to `"true"` to enable mock mode (default), or `"false"` for production
+     - `REDDIT_USER_AGENT`: A user agent string for Reddit API requests (e.g., `"MyApp/1.0 by /u/yourusername"`)
+   
+   - **Email** (Resend): Get your API key from [Resend](https://resend.com)
+     - `RESEND_API_KEY`: Your Resend API key
+
+### MOCK_MODE
+
+When `MOCK_MODE` is set to `"true"` (default), the application will use mock data instead of making real API calls. This is useful for:
+- Development and testing without consuming API quotas
+- Demonstrating the application without external dependencies
+- Local development when services are unavailable
+
+Set `MOCK_MODE` to `"false"` to enable production mode with real API integrations.
+
+**Note**: Environment variable validation runs automatically on import. If any required variables are missing or invalid, the application will fail to start with a clear error message listing the missing keys.
+
+## Database Setup
+
+After configuring your environment variables, you need to apply the database migrations to create the required tables.
+
+### Option 1: Using Supabase CLI (Recommended)
+
+1. **Login to Supabase:**
+   ```bash
+   npx supabase login
+   ```
+   This will open your browser to authenticate with your Supabase account.
+
+2. **Link your Supabase project:**
+   ```bash
+   npm run db:link
+   ```
+   This will prompt you for your project reference ID (found in your Supabase project settings).
+
+3. **Push migrations:**
+   ```bash
+   npm run db:migrate
+   ```
+   This will apply all migrations in `supabase/migrations/` to your remote database.
+
+4. **Check migration status:**
+   ```bash
+   npm run db:status
+   ```
+
+### Option 2: Using Supabase Dashboard
+
+1. Go to your [Supabase Dashboard](https://app.supabase.com)
+2. Select your project
+3. Navigate to **SQL Editor**
+4. Copy the contents of `supabase/migrations/20240101000000_initial_schema.sql`
+5. Paste and run the SQL in the editor
+
+### Validate Database Connection
+
+After running migrations, validate your database connection:
+
+```bash
+npm run db:validate
+```
+
+This will confirm that:
+- Your environment variables are correctly configured
+- The database connection is working
+- The required tables exist
+
+If validation fails, the script will provide helpful error messages and guidance on how to fix the issue.
+
+### Database Health Check API
+
+Once your application is running, you can check the database health via the API endpoint:
+
+**Endpoint:** [`GET /api/health/db`](app/api/health/db/route.ts)
+
+This endpoint performs a real-time database connection check and returns:
+- `status`: `'ok'` if the database is accessible, `'error'` if there's an issue
+- `timestamp`: ISO timestamp of the check
+- `latency`: Response time in milliseconds
+- `count`: Number of rows in the `subreddits` table (on success)
+
+**Example response (success):**
+```json
+{
+  "status": "ok",
+  "timestamp": "2024-01-01T12:00:00.000Z",
+  "latency": "45ms",
+  "count": 0
+}
+```
+
+**Example response (error):**
+```json
+{
+  "status": "error",
+  "message": "Could not find the table 'public.subreddits' in the schema cache",
+  "timestamp": "2024-01-01T12:00:00.000Z",
+  "latency": "12ms"
+}
+```
+
+You can test this endpoint by visiting `http://localhost:3000/api/health/db` when your development server is running.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:

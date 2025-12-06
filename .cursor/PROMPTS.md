@@ -3,6 +3,7 @@
 | Phase | Context / Goal | Key Prompt | Link to Full Chat |
 |-------|----------------|------------|-------------------|
 | Setup | Initializing project structure | "Initialize Next.js 16 project..." | [View Chat](./history/01_setup.md) |
+| Database & Config | Database schema, environment validation, and health checks | "Define Schema and Types", "Environment Configuration and Validation", "DB Health Checks and Pre-Commit Hooks" | [View Chat](./history/02_database_config.md) |
 
 ## Instructions
 
