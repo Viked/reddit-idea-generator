@@ -14,14 +14,17 @@ class TestMockLLMService implements ILLMService {
       {
         text: 'Mock pain point about slow wifi connections in remote work',
         score: 8,
+        source_ids: ['mock_post_1', 'mock_post_2'],
       },
       {
         text: 'Mock pain point about manual data entry being time-consuming',
         score: 7,
+        source_ids: ['mock_post_2'],
       },
       {
         text: 'Mock pain point about lack of integration between tools',
         score: 6,
+        source_ids: ['mock_post_3'],
       },
     ]
   }
@@ -96,10 +99,11 @@ async function testMockMode() {
   const firstPainPoint = mockPainPoints[0]
   if (
     !firstPainPoint.text ||
-    typeof firstPainPoint.score !== 'number'
+    typeof firstPainPoint.score !== 'number' ||
+    !Array.isArray(firstPainPoint.source_ids)
   ) {
     console.error('❌ Mock pain point has invalid structure')
-    console.error('   Expected: { text, score }')
+    console.error('   Expected: { text, score, source_ids }')
     console.error('   Received:', firstPainPoint)
     process.exit(1)
   }

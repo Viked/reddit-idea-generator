@@ -3,6 +3,7 @@ import { RedditPost } from '@/services/reddit-service'
 export interface PainPoint {
   text: string
   score: number
+  source_ids: string[] // Array of Reddit post IDs that contributed to this pain point
 }
 
 export interface GeneratedIdea {

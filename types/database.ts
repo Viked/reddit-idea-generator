@@ -77,6 +77,7 @@ export interface Database {
           pitch: string
           pain_point: string
           score: number
+          source_ids: string[] | null
           created_at: string
           updated_at: string
         }
@@ -86,6 +87,7 @@ export interface Database {
           pitch: string
           pain_point: string
           score: number
+          source_ids?: string[] | null
           created_at?: string
           updated_at?: string
         }
@@ -95,6 +97,7 @@ export interface Database {
           pitch?: string
           pain_point?: string
           score?: number
+          source_ids?: string[] | null
           created_at?: string
           updated_at?: string
         }

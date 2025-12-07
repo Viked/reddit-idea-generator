@@ -37,15 +37,15 @@ export class OpenAILLMService implements ILLMService {
   }
 
   async analyzePainPoints(posts: RedditPost[]): Promise<PainPoint[]> {
-    // Combine posts into a single text for analysis
+    // Combine posts into a single text for analysis, prefixing each with its reddit_id
     const postsText = posts
       .map(
         (post) =>
-          `Title: ${post.title}\nContent: ${post.selftext || 'No content'}\nSubreddit: ${post.subreddit}`
+          `[REDDIT_ID: ${post.reddit_id}]\nTitle: ${post.title}\nContent: ${post.selftext || 'No content'}\nSubreddit: ${post.subreddit}`
       )
       .join('\n\n---\n\n')
 
-    const userMessage = `Analyze the following Reddit posts and extract pain points:\n\n${postsText}`
+    const userMessage = `Analyze the following Reddit posts and extract pain points. Each post is prefixed with its REDDIT_ID - include these IDs in the source_ids array for each pain point you identify:\n\n${postsText}`
 
     try {
       const response = await this.client.chat.completions.create({
@@ -70,7 +70,11 @@ export class OpenAILLMService implements ILLMService {
         throw new Error('Invalid response format: pain_points must be an array')
       }
 
-      return parsed.pain_points
+      // Validate and normalize source_ids for each pain point
+      return parsed.pain_points.map((pp) => ({
+        ...pp,
+        source_ids: Array.isArray(pp.source_ids) ? pp.source_ids : [],
+      }))
     } catch (error) {
       if (error instanceof SyntaxError) {
         throw new Error(
@@ -135,18 +139,23 @@ export class MockLLMService implements ILLMService {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async analyzePainPoints(_posts: RedditPost[]): Promise<PainPoint[]> {
     // Return mock pain points based on common themes
+    // Use the first few posts' reddit_ids as mock source_ids
+    const mockSourceIds = _posts.slice(0, 2).map((p) => p.reddit_id)
     return [
       {
         text: 'Mock pain point about slow wifi connections in remote work',
         score: 8,
+        source_ids: mockSourceIds.length > 0 ? mockSourceIds : ['mock_post_1', 'mock_post_2'],
       },
       {
         text: 'Mock pain point about manual data entry being time-consuming',
         score: 7,
+        source_ids: mockSourceIds.length > 1 ? mockSourceIds : ['mock_post_2', 'mock_post_3'],
       },
       {
         text: 'Mock pain point about lack of integration between tools',
         score: 6,
+        source_ids: mockSourceIds.length > 0 ? [mockSourceIds[0]] : ['mock_post_3'],
       },
     ]
   }

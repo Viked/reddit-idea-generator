@@ -13,9 +13,9 @@ const clientEnvSchema = z.object({
 /**
  * Server-side environment variables (private, not exposed to the browser)
  * 
- * TODO: Make non-Supabase variables required once their integrations are implemented.
- * Currently, only Supabase is required as it's the core database. Other services
- * (OpenAI, Inngest, Resend) are optional until their respective features are built.
+ * Note: Supabase variables are required as they are the core database.
+ * Other service variables (OpenAI, Inngest, Resend) are optional to allow
+ * the app to run in mock mode or with partial integrations.
  */
 const serverEnvSchema = z.object({
   // Supabase (required - core database)
@@ -23,10 +23,6 @@ const serverEnvSchema = z.object({
   
   // OpenAI (optional until integration is implemented)
   OPENAI_API_KEY: z.string().min(1, 'OPENAI_API_KEY is required').optional(),
-  
-  // Inngest (optional until integration is implemented)
-  INNGEST_EVENT_KEY: z.string().min(1, 'INNGEST_EVENT_KEY is required').optional(),
-  INNGEST_SIGNING_KEY: z.string().min(1, 'INNGEST_SIGNING_KEY is required').optional(),
   
   // App Logic
   MOCK_MODE: z
@@ -38,16 +34,6 @@ const serverEnvSchema = z.object({
   
   // Email (optional until integration is implemented)
   RESEND_API_KEY: z.string().min(1, 'RESEND_API_KEY is required').optional(),
-  
-  // Cron Configuration
-  EMAIL_DIGEST_INTERVAL_HOURS: z
-    .string()
-    .default('24')
-    .transform((val) => {
-      const parsed = parseInt(val, 10)
-      return isNaN(parsed) || parsed < 1 ? 24 : parsed
-    })
-    .optional(),
 })
 
 /**
@@ -82,12 +68,9 @@ function validateServerEnv() {
   const serverEnv = {
     SUPABASE_SERVICE_ROLE_KEY: process.env.SUPABASE_SERVICE_ROLE_KEY,
     OPENAI_API_KEY: process.env.OPENAI_API_KEY,
-    INNGEST_EVENT_KEY: process.env.INNGEST_EVENT_KEY,
-    INNGEST_SIGNING_KEY: process.env.INNGEST_SIGNING_KEY,
     MOCK_MODE: process.env.MOCK_MODE,
     REDDIT_USER_AGENT: process.env.REDDIT_USER_AGENT,
     RESEND_API_KEY: process.env.RESEND_API_KEY,
-    EMAIL_DIGEST_INTERVAL_HOURS: process.env.EMAIL_DIGEST_INTERVAL_HOURS,
   }
 
   const result = serverEnvSchema.safeParse(serverEnv)

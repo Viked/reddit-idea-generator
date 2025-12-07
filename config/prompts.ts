@@ -20,10 +20,13 @@ Return your analysis as a JSON object with the following structure:
   "pain_points": [
     {
       "text": "A clear, concise description of the pain point",
-      "score": 75
+      "score": 75,
+      "source_ids": ["post_id_1", "post_id_2"]
     }
   ]
 }
+
+For each pain point, include the "source_ids" array containing the Reddit post IDs (reddit_id values) that contributed to identifying this specific pain point. These IDs are provided in the post content prefixes. Include all relevant post IDs that mention or relate to the pain point.
 
 IMPORTANT: You MUST return valid JSON only. Do not include any markdown formatting, code blocks, or explanatory text. Return pure JSON.`
 

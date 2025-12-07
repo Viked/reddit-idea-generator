@@ -10,6 +10,7 @@
 | UI & Landing Page | Landing Page and Dashboard with Tosnos Design System | "Implement Landing Page and Dashboard (Tosnos Design System)" | [View Chat](./history/06_ui_landing_page.md) |
 | Auth & Email | Authentication & Email Delivery System | "Authentication & Email Delivery System" | [View Chat](./history/07_email_sending_and_auth.md) |
 | Email Refactor & UI Polish | Email Flow Refactor, LLM Scoring Fix, and UI Polish | "Refactor Email Flow, Fix LLM Scoring, and Polish UI" | [View Chat](./history/08_email_refactor_ui_polish.md) |
+| Final Validation & Polish | Source Linking, Code Cleanup, Security Audit, and README Update | "Final Project Validation and Polish" | [View Chat](./history/09_final_validation_polish.md) |
 
 ## Instructions
 

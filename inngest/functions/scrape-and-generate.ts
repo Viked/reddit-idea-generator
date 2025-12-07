@@ -132,6 +132,7 @@ export const scrapeAndGenerate = inngest.createFunction(
         generatedIdeas.push({
           ...idea,
           pain_point: painPoint.text, // Map pain point text for database
+          source_ids: painPoint.source_ids || [], // Include source IDs from analysis
         })
       }
 
@@ -148,6 +149,7 @@ export const scrapeAndGenerate = inngest.createFunction(
           pitch: idea.pitch,
           pain_point: idea.pain_point,
           score: idea.score,
+          source_ids: (idea as { source_ids?: string[] }).source_ids || [],
         }))
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any

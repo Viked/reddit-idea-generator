@@ -1,9 +1,10 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ExternalLink } from "lucide-react";
+import { ExternalLink, ChevronDown, ChevronUp } from "lucide-react";
 import { Database } from "@/types/database";
 
 type Idea = Database["public"]["Tables"]["ideas"]["Row"];
@@ -13,6 +14,10 @@ interface IdeaCardProps {
 }
 
 export function IdeaCard({ idea }: IdeaCardProps) {
+  const [showSources, setShowSources] = useState(false);
+  
+  // Get source IDs, handling both null and empty array cases
+  const sourceIds = idea.source_ids && idea.source_ids.length > 0 ? idea.source_ids : [];
   const scoreColor =
     idea.score >= 80
       ? "bg-green-100 text-green-800 border-green-200"
@@ -45,6 +50,43 @@ export function IdeaCard({ idea }: IdeaCardProps) {
             {idea.pain_point}
           </p>
         </div>
+        {sourceIds.length > 0 && (
+          <div className="border-t border-neutral-100 pt-4">
+            <button
+              onClick={() => setShowSources(!showSources)}
+              className="flex w-full items-center justify-between text-sm font-medium text-neutral-600 transition-colors hover:text-neutral-900"
+            >
+              <span>View Sources ({sourceIds.length})</span>
+              {showSources ? (
+                <ChevronUp className="h-4 w-4" />
+              ) : (
+                <ChevronDown className="h-4 w-4" />
+              )}
+            </button>
+            {showSources && (
+              <div className="mt-3 space-y-2">
+                {sourceIds.map((sourceId) => {
+                  // Sanitize sourceId for URL safety (Reddit IDs are alphanumeric, but validate)
+                  const sanitizedId = sourceId?.replace(/[^a-zA-Z0-9]/g, '') || ''
+                  if (!sanitizedId) return null
+                  
+                  return (
+                    <Link
+                      key={sourceId}
+                      href={`https://www.reddit.com/comments/${sanitizedId}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 text-sm text-neutral-600 underline transition-colors hover:text-neutral-900"
+                    >
+                      <span>View post {sanitizedId}</span>
+                      <ExternalLink className="h-3 w-3" />
+                    </Link>
+                  )
+                })}
+              </div>
+            )}
+          </div>
+        )}
         <div className="flex items-center justify-end pt-2">
           <Link
             href={`https://www.reddit.com/r/entrepreneur/search?q=${encodeURIComponent(idea.pain_point.substring(0, 50))}&restrict_sr=1`}
