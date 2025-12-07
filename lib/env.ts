@@ -7,6 +7,7 @@ import { z } from 'zod'
 const clientEnvSchema = z.object({
   NEXT_PUBLIC_SUPABASE_URL: z.string().url('NEXT_PUBLIC_SUPABASE_URL must be a valid URL'),
   NEXT_PUBLIC_SUPABASE_ANON_KEY: z.string().min(1, 'NEXT_PUBLIC_SUPABASE_ANON_KEY is required'),
+  NEXT_PUBLIC_SITE_URL: z.string().url('NEXT_PUBLIC_SITE_URL must be a valid URL').optional(),
 })
 
 /**
@@ -37,6 +38,16 @@ const serverEnvSchema = z.object({
   
   // Email (optional until integration is implemented)
   RESEND_API_KEY: z.string().min(1, 'RESEND_API_KEY is required').optional(),
+  
+  // Cron Configuration
+  EMAIL_DIGEST_INTERVAL_HOURS: z
+    .string()
+    .default('24')
+    .transform((val) => {
+      const parsed = parseInt(val, 10)
+      return isNaN(parsed) || parsed < 1 ? 24 : parsed
+    })
+    .optional(),
 })
 
 /**
@@ -47,6 +58,7 @@ function validateClientEnv() {
   const clientEnv = {
     NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,
     NEXT_PUBLIC_SUPABASE_ANON_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+    NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
   }
 
   const result = clientEnvSchema.safeParse(clientEnv)
@@ -75,6 +87,7 @@ function validateServerEnv() {
     MOCK_MODE: process.env.MOCK_MODE,
     REDDIT_USER_AGENT: process.env.REDDIT_USER_AGENT,
     RESEND_API_KEY: process.env.RESEND_API_KEY,
+    EMAIL_DIGEST_INTERVAL_HOURS: process.env.EMAIL_DIGEST_INTERVAL_HOURS,
   }
 
   const result = serverEnvSchema.safeParse(serverEnv)

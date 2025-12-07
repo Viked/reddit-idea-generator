@@ -28,8 +28,11 @@ Mandatory checklist to be performed before every commit:
 6. **UI**: 
    - Run `npm run ui:validate` to validate landing page and dashboard functionality.
 
-7. **Audit**: 
+7. **Auth**: 
+   - Run `npm run auth:validate` to validate authentication and email delivery system functionality.
+
+8. **Audit**: 
    - Update `.cursor/PROMPTS.md` with the key prompt used to generate the feature
 
-8. **History**: 
+9. **History**: 
    - Export the chat history to `.cursor/history/` and link it in the `PROMPTS.md` entry

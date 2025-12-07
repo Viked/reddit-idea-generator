@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -5,8 +7,27 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { signIn } from "@/app/actions/auth";
+import { useTransition } from "react";
+import { toast } from "sonner";
 
 export default function LoginPage() {
+  const [isPending, startTransition] = useTransition();
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    
+    startTransition(async () => {
+      const result = await signIn(formData);
+      if (result.error) {
+        toast.error(result.error);
+      } else {
+        toast.success(result.message || "Check your email for the magic link!");
+      }
+    });
+  };
+
   return (
     <div className="flex min-h-screen flex-col">
       <SiteHeader />
@@ -14,49 +35,37 @@ export default function LoginPage() {
         <Card className="w-full max-w-md border-neutral-200">
           <CardHeader className="space-y-1">
             <CardTitle className="text-2xl font-bold text-neutral-900">
-              Sign in to your account
+              Sign in with Magic Link
             </CardTitle>
             <CardDescription className="text-neutral-600">
-              Enter your email to get started
+              Enter your email to receive a sign-in link
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <form className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="email" className="text-neutral-900">
                   Email
                 </Label>
                 <Input
                   id="email"
+                  name="email"
                   type="email"
                   placeholder="you@example.com"
                   className="border-neutral-200"
+                  required
+                  disabled={isPending}
                 />
               </div>
-              <div className="space-y-2">
-                <Label htmlFor="password" className="text-neutral-900">
-                  Password
-                </Label>
-                <Input
-                  id="password"
-                  type="password"
-                  placeholder="••••••••"
-                  className="border-neutral-200"
-                />
-              </div>
-              <Button type="submit" className="w-full" size="lg">
-                Sign in
+              <Button 
+                type="submit" 
+                className="w-full" 
+                size="lg"
+                disabled={isPending}
+              >
+                {isPending ? "Sending..." : "Send Magic Link"}
               </Button>
             </form>
-            <div className="mt-6 text-center text-sm text-neutral-600">
-              Don&apos;t have an account?{" "}
-              <Link
-                href="/login"
-                className="font-medium text-neutral-900 hover:underline"
-              >
-                Sign up
-              </Link>
-            </div>
             <div className="mt-4 text-center">
               <Link
                 href="/"

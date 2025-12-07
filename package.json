@@ -16,7 +16,8 @@
     "llm:validate": "npx tsx scripts/validate-llm.ts",
     "inngest:dev": "npx inngest-cli@latest dev",
     "workflow:test": "npx tsx scripts/test-workflow.ts",
-    "ui:validate": "npx tsx scripts/validate-ui.ts"
+    "ui:validate": "npx tsx scripts/validate-ui.ts",
+    "auth:validate": "npx tsx scripts/validate-auth.ts"
   },
   "dependencies": {
     "@radix-ui/react-label": "^2.1.8",
