@@ -17,8 +17,11 @@ Mandatory checklist to be performed before every commit:
 3. **Ingestion**: 
    - Run `npm run ingest:validate` to validate Reddit ingestion service functionality.
 
-4. **Audit**: 
+4. **LLM Service**: 
+   - Run `npm run llm:validate` to validate LLM extraction and ideation service functionality.
+
+5. **Audit**: 
    - Update `.cursor/PROMPTS.md` with the key prompt used to generate the feature
 
-5. **History**: 
+6. **History**: 
    - Export the chat history to `.cursor/history/` and link it in the `PROMPTS.md` entry

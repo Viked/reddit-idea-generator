@@ -11,7 +11,8 @@
     "db:migrate": "npx supabase db push",
     "db:link": "npx supabase link",
     "db:status": "npx supabase migration list",
-    "ingest:validate": "npx tsx scripts/validate-ingest.ts"
+    "ingest:validate": "npx tsx scripts/validate-ingest.ts",
+    "llm:validate": "npx tsx scripts/validate-llm.ts"
   },
   "dependencies": {
     "@radix-ui/react-label": "^2.1.8",
