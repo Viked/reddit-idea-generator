@@ -25,8 +25,11 @@ Mandatory checklist to be performed before every commit:
 5. **Workflow**: 
    - Run `npm run workflow:test` to validate Inngest workflow pipeline functionality.
 
-6. **Audit**: 
+6. **UI**: 
+   - Run `npm run ui:validate` to validate landing page and dashboard functionality.
+
+7. **Audit**: 
    - Update `.cursor/PROMPTS.md` with the key prompt used to generate the feature
 
-7. **History**: 
+8. **History**: 
    - Export the chat history to `.cursor/history/` and link it in the `PROMPTS.md` entry

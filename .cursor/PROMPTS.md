@@ -7,6 +7,7 @@
 | Ingestion | Reddit Ingestion Service with DB Caching, Mock Export, and Auto-Validation | "Reddit Ingestion Service with DB Caching, Mock Export, and Auto-Validation" | [View Chat](./history/03_reddit_ingestion.md) |
 | LLM Service | LLM Extraction & Ideation Service with Mock Support | "LLM Extraction & Ideation Service with Mock Support" | [View Chat](./history/04_llm_service.md) |
 | Inngest Workflow | Inngest Workflow Setup & Logic Integration | "Inngest Workflow Setup & logic integration" | [View Chat](./history/05_inngest_workflow.md) |
+| UI & Landing Page | Landing Page and Dashboard with Tosnos Design System | "Implement Landing Page and Dashboard (Tosnos Design System)" | [View Chat](./history/06_ui_landing_page.md) |
 
 ## Instructions
 
