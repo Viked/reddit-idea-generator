@@ -2,16 +2,30 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
-First, run the development server:
+### Running the Development Environment
+
+For testing and development, use the unified dev script that runs both Next.js and Inngest dev servers:
 
 ```bash
+npm run dev:all
+```
+
+This will start:
+- **Next.js dev server** on `http://localhost:3000`
+- **Inngest dev server** on `http://localhost:8288`
+
+Both servers run concurrently with color-coded output for easy monitoring.
+
+### Running Individual Servers
+
+If you need to run servers separately:
+
+```bash
+# Next.js only
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+# Inngest only
+npm run inngest:dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
@@ -145,6 +159,55 @@ This endpoint performs a real-time database connection check and returns:
 ```
 
 You can test this endpoint by visiting `http://localhost:3000/api/health/db` when your development server is running.
+
+## Inngest Workflow Testing
+
+The application uses Inngest for background job processing and scheduled workflows. To test Inngest workflows:
+
+### Start Development Environment
+
+Use the unified dev script to run both servers:
+
+```bash
+npm run dev:all
+```
+
+This starts:
+- Next.js on `http://localhost:3000`
+- Inngest Dev Server on `http://localhost:8288`
+
+### Testing Workflows
+
+1. **Access Inngest Dev Server UI:**
+   - Open `http://localhost:8288` in your browser
+   - Navigate to the "Functions" tab to see registered functions
+   - Navigate to the "Events" tab to send test events
+
+2. **Send Test Events:**
+   - In the Inngest UI, click "Send event"
+   - Event name: `app/scrape`
+   - Event data (optional): `{ "subreddit": "entrepreneur" }`
+   - If `subreddit` is omitted, it defaults to `"entrepreneur"`
+
+3. **Monitor Function Execution:**
+   - Check the "Runs" tab to see function execution history
+   - View step-by-step execution logs and results
+
+### Validate Workflow Logic (Without Inngest Server)
+
+To test the workflow logic chain without running the full Inngest server:
+
+```bash
+npm run workflow:test
+```
+
+This script:
+- Forces `MOCK_MODE=true`
+- Executes the full pipeline: Fetch → Analyze → Ideate
+- Validates that at least one valid `Idea` object is produced
+- Useful for CI/CD and quick validation
+
+**Note**: Always use `npm run dev:all` for testing Inngest workflows, as it ensures both servers are running and functions are properly registered.
 
 ## Learn More
 

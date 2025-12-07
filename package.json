@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "dev:all": "concurrently -n \"NEXT,INNGEST\" -c \"blue,green\" \"npm run dev\" \"npm run inngest:dev\"",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
@@ -12,7 +13,9 @@
     "db:link": "npx supabase link",
     "db:status": "npx supabase migration list",
     "ingest:validate": "npx tsx scripts/validate-ingest.ts",
-    "llm:validate": "npx tsx scripts/validate-llm.ts"
+    "llm:validate": "npx tsx scripts/validate-llm.ts",
+    "inngest:dev": "npx inngest-cli@latest dev",
+    "workflow:test": "npx tsx scripts/test-workflow.ts"
   },
   "dependencies": {
     "@radix-ui/react-label": "^2.1.8",
@@ -38,6 +41,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "concurrently": "^9.1.2",
     "dotenv": "^17.2.3",
     "eslint": "^9",
     "eslint-config-next": "16.0.7",

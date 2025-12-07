@@ -7,6 +7,8 @@ alwaysApply: true
 
 Mandatory checklist to be performed before every commit:
 
+**Note**: For testing Inngest workflows, use `npm run dev:all` to run both Next.js and Inngest dev servers together.
+
 1. **Validation**: 
    - Run `npx tsc --noEmit` (Type Check) to ensure no TypeScript errors
    - Run `npm run lint` to ensure no linting errors
@@ -20,8 +22,11 @@ Mandatory checklist to be performed before every commit:
 4. **LLM Service**: 
    - Run `npm run llm:validate` to validate LLM extraction and ideation service functionality.
 
-5. **Audit**: 
+5. **Workflow**: 
+   - Run `npm run workflow:test` to validate Inngest workflow pipeline functionality.
+
+6. **Audit**: 
    - Update `.cursor/PROMPTS.md` with the key prompt used to generate the feature
 
-6. **History**: 
+7. **History**: 
    - Export the chat history to `.cursor/history/` and link it in the `PROMPTS.md` entry
