@@ -36,10 +36,14 @@ export async function signIn(formData: FormData) {
     }
   )
 
+  // Construct the redirect URL - use SITE_URL if available, otherwise construct from request
+  const baseUrl = clientEnv.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
+  const redirectTo = `${baseUrl}/auth/callback`
+
   const { error } = await supabase.auth.signInWithOtp({
     email,
     options: {
-      emailRedirectTo: `${clientEnv.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/auth/callback`,
+      emailRedirectTo: redirectTo,
     },
   })
 

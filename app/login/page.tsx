@@ -32,19 +32,19 @@ export default function LoginPage() {
     <div className="flex min-h-screen flex-col">
       <SiteHeader />
       <main className="flex flex-1 items-center justify-center bg-neutral-50 px-4 py-12 sm:px-6 lg:px-8">
-        <Card className="w-full max-w-md border-neutral-200">
-          <CardHeader className="space-y-1">
-            <CardTitle className="text-2xl font-bold text-neutral-900">
+        <Card className="w-full max-w-md border border-neutral-200 bg-white p-8 shadow-sm">
+          <CardHeader className="space-y-1.5 px-0">
+            <CardTitle className="text-3xl font-bold text-neutral-900">
               Sign in with Magic Link
             </CardTitle>
             <CardDescription className="text-neutral-600">
               Enter your email to receive a sign-in link
             </CardDescription>
           </CardHeader>
-          <CardContent>
-            <form onSubmit={handleSubmit} className="space-y-4">
+          <CardContent className="space-y-6 px-0">
+            <form onSubmit={handleSubmit} className="space-y-6">
               <div className="space-y-2">
-                <Label htmlFor="email" className="text-neutral-900">
+                <Label htmlFor="email" className="text-neutral-900 font-medium">
                   Email
                 </Label>
                 <Input
@@ -52,24 +52,24 @@ export default function LoginPage() {
                   name="email"
                   type="email"
                   placeholder="you@example.com"
-                  className="border-neutral-200"
+                  className="border-neutral-200 bg-white text-neutral-900 placeholder:text-neutral-500 focus-visible:ring-purple-600 focus-visible:border-purple-600"
                   required
                   disabled={isPending}
                 />
               </div>
               <Button 
                 type="submit" 
-                className="w-full" 
+                className="w-full bg-purple-600 text-white hover:bg-purple-700" 
                 size="lg"
                 disabled={isPending}
               >
                 {isPending ? "Sending..." : "Send Magic Link"}
               </Button>
             </form>
-            <div className="mt-4 text-center">
+            <div className="pt-2 text-center">
               <Link
                 href="/"
-                className="text-sm text-neutral-600 hover:text-neutral-900"
+                className="text-sm text-neutral-600 hover:text-neutral-900 transition-colors"
               >
                 ← Back to home
               </Link>

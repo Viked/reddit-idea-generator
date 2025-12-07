@@ -47,14 +47,12 @@ export function IdeaCard({ idea }: IdeaCardProps) {
         </div>
         <div className="flex items-center justify-end pt-2">
           <Link
-            href="#"
+            href={`https://www.reddit.com/r/entrepreneur/search?q=${encodeURIComponent(idea.pain_point.substring(0, 50))}&restrict_sr=1`}
+            target="_blank"
+            rel="noopener noreferrer"
             className="flex items-center gap-2 text-sm font-medium text-neutral-600 transition-colors hover:text-neutral-900"
-            onClick={(e) => {
-              e.preventDefault();
-              // TODO: Link to actual Reddit post when relationship is established
-            }}
           >
-            <span>View on Reddit</span>
+            <span>Search on Reddit</span>
             <ExternalLink className="h-4 w-4" />
           </Link>
         </div>

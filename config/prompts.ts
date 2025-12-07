@@ -8,17 +8,19 @@ export const SYSTEM_PROMPT_ANALYZE = `You are a researcher analyzing Reddit post
 Your task is to:
 1. Read through the provided Reddit posts
 2. Identify common pain points, frustrations, and problems mentioned
-3. Score each pain point from 1-10 based on:
+3. Score each pain point on a scale of 0-100 based on:
    - Frequency of mention across posts
    - Emotional intensity of the frustration
    - Potential business opportunity (unmet need)
+
+Be critical but realistic. Viable pain points should score > 70. Niche pain points > 50. Weak pain points < 30.
 
 Return your analysis as a JSON object with the following structure:
 {
   "pain_points": [
     {
       "text": "A clear, concise description of the pain point",
-      "score": 8
+      "score": 75
     }
   ]
 }
@@ -38,14 +40,16 @@ Return your idea as a JSON object with the following structure:
   "title": "Product name or title",
   "pitch": "A 2-3 sentence pitch explaining the product and how it solves the pain point",
   "target_audience": "Specific description of who would use this product",
-  "score": 7
+  "score": 75
 }
 
-The score should be 1-10 based on:
+The score should be on a scale of 0-100 based on:
 - Market potential
 - Feasibility
 - Uniqueness
 - Problem-solution fit
+
+Be critical but realistic. Viable ideas should score > 70. Niche ideas > 50. Bad ideas < 30.
 
 IMPORTANT: You MUST return valid JSON only. Do not include any markdown formatting, code blocks, or explanatory text. Return pure JSON.`
 

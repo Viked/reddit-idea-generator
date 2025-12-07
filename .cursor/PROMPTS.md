@@ -8,6 +8,8 @@
 | LLM Service | LLM Extraction & Ideation Service with Mock Support | "LLM Extraction & Ideation Service with Mock Support" | [View Chat](./history/04_llm_service.md) |
 | Inngest Workflow | Inngest Workflow Setup & Logic Integration | "Inngest Workflow Setup & logic integration" | [View Chat](./history/05_inngest_workflow.md) |
 | UI & Landing Page | Landing Page and Dashboard with Tosnos Design System | "Implement Landing Page and Dashboard (Tosnos Design System)" | [View Chat](./history/06_ui_landing_page.md) |
+| Auth & Email | Authentication & Email Delivery System | "Authentication & Email Delivery System" | [View Chat](./history/07_email_sending_and_auth.md) |
+| Email Refactor & UI Polish | Email Flow Refactor, LLM Scoring Fix, and UI Polish | "Refactor Email Flow, Fix LLM Scoring, and Polish UI" | [View Chat](./history/08_email_refactor_ui_polish.md) |
 
 ## Instructions
 

@@ -31,8 +31,18 @@ Mandatory checklist to be performed before every commit:
 7. **Auth**: 
    - Run `npm run auth:validate` to validate authentication and email delivery system functionality.
 
-8. **Audit**: 
+8. **Flow**: 
+   - Run `npm run flow:validate` to validate email digest flow functionality.
+
+9. **Code Cleanup**: 
+   - Remove all deprecated and legacy code before committing
+   - Search for TODO comments and either implement or remove them
+   - Remove unused imports, variables, and functions
+   - Ensure no commented-out code blocks remain
+   - Verify all error handlers are properly implemented
+
+10. **Audit**: 
    - Update `.cursor/PROMPTS.md` with the key prompt used to generate the feature
 
-9. **History**: 
+11. **History**: 
    - Export the chat history to `.cursor/history/` and link it in the `PROMPTS.md` entry
